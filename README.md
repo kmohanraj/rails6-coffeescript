@@ -1,24 +1,76 @@
-# README
+***** Install coffee-loader:
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+run the command under your rails application.
 
-Things you may want to cover:
+```
+rails webpacker:install:coffee
+```
 
-* Ruby version
+***** Include the application layout file:
+```
+`layouts/application.html.erb`
+<%= javascript_pack_tag 'hello_coffee' %>
+```
 
-* System dependencies
+***** Install yarn packages
 
-* Configuration
+```
+yarn add coffeescript coffee-loader jquery bootstrap popper.js
+```
 
-* Database creation
+***** Replace following codes to environment.js
+```
+`config/webpack/environment.js`
 
-* Database initialization
+const { environment } = require('@rails/webpacker');
+const coffee =  require('./loaders/coffee');
+const webpack = require('webpack');
+environment.plugins.append('Provide', new webpack.ProvidePlugin({
+    $: 'jquery',
+    jQuery: 'jquery',
+    Popper: ['popper.js', 'default']
+}));
+environment.loaders.prepend('coffee', coffee);
 
-* How to run the test suite
+module.exports = environment;
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+***** Then coffee extention inserted
 
-* Deployment instructions
+```
+`config/webpacker.yml`
 
-* ...
+extensions:
+  - .coffee
+  - .js
+```
+
+```
+`config/webpack/loaders/coffee.js`
+
+module.exports = {
+  test: /\.coffee(\.erb)?$/,
+  use: [{
+    loader: 'coffee-loader'
+  }]
+}
+```
+
+***** Then Add required file to application.css
+```
+`assets/stylesheets/application.css`
+*= require select2
+*= require bootstrap
+```
+
+***** Then Add required file to application.js
+```
+`assets/stylesheets/application.js`
+
+require('jquery');
+require('popper.js');
+require("channels");
+require('bootstrap');
+window.jQuery = $;
+window.$ = $;
+```
