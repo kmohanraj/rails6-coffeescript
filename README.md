@@ -7,7 +7,7 @@ rails webpacker:install:coffee
 ```
 
 ##### Include the application layout file:
-layouts/application.html.erb
+> layouts/application.html.erb
 ```
 <%= javascript_pack_tag 'hello_coffee' %>
 ```
@@ -20,7 +20,7 @@ yarn add coffeescript coffee-loader jquery bootstrap popper.js
 
 ###### Replace following codes to environment.js
 
-config/webpack/environment.js
+> config/webpack/environment.js
 ```
 
 const { environment } = require('@rails/webpacker');
