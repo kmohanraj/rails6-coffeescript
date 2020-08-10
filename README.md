@@ -76,4 +76,5 @@ window.jQuery = $;
 window.$ = $;
 ```
 
-[screenshot!](/)
+![Screenshot](demo.png)
+
